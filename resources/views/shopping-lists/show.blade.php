@@ -28,9 +28,10 @@
         <p>No grocery items have been added to this list yet.</p>
     @else
         <div class="table-responsive">
-            <table class="table">
+           <table class="table" id="grocery-items-table" data-reorder-url="{{ route('shopping-lists.items.reorder', $shoppingList) }}">
                 <thead>
                     <tr>
+                        <th>Move</th>
                         <th>Item Name</th>
                         <th>Quantity</th>
                         <th>Unit Price</th>
@@ -42,7 +43,8 @@
 
                 <tbody>
                     @foreach ($items as $item)
-                        <tr>
+                         <tr data-item-uuid="{{ $item->uuid }}">
+                            <td class="drag-handle" draggable="true" title="Drag to reorder">⠿</td>
                             <td>
                                 <span style="{{ $item->is_purchased ? 'text-decoration: line-through; color: #888;' : '' }}">
                                     {{ $item->name }}

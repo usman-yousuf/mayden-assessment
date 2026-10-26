@@ -17,4 +17,8 @@ interface ShoppingListItemRepositoryInterface
     public function delete(ShoppingListItem $item): bool;
 
     public function updatePurchasedStatus(ShoppingListItem $item, bool $isPurchased): bool;
+
+    public function getNextSortOrder(ShoppingList $shoppingList): int;
+
+    public function reorderItems(ShoppingList $shoppingList, array $itemUuids): void;
 }

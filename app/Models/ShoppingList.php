@@ -40,6 +40,6 @@ class ShoppingList extends Model
 
     public function items(): HasMany
     {
-        return $this->hasMany(ShoppingListItem::class)->orderBy('sort_order');
+        return $this->hasMany(ShoppingListItem::class)->orderBy('sort_order')->orderBy('id');
     }
 }

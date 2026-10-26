@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\ShoppingList;
 use App\Models\ShoppingListItem;
-use App\Http\Requests\ShoppingListItemStoreRequest;
 use App\Services\ShoppingListItemService;
+use App\Http\Requests\ShoppingListItemStoreRequest;
+use App\Http\Requests\ShoppingListItemReorderRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -59,5 +61,19 @@ class ShoppingListItemController extends Controller
 
         return redirect()->route('shopping-lists.show', $shoppingList)->with('success', 'Grocery item status updated successfully.');
     }
+
+    
+    public function reorder(ShoppingListItemReorderRequest $request, ShoppingList $shoppingList): JsonResponse
+    {
+        abort_unless((int) $shoppingList->user_id === (int) $request->user()->id, 403);
+
+        $this->shoppingListItemService->reorderItems($shoppingList, $request->validated('items'));
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Grocery items reordered successfully.',
+        ]);
+    }
+
 
 }

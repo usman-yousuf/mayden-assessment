@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/shopping-lists/{shoppingList}', [ShoppingListController::class, 'show'])->name('shopping-lists.show');
     Route::get('/shopping-lists/{shoppingList}/items/create', [ShoppingListItemController::class, 'create'])->name('shopping-lists.items.create');
     Route::post('/shopping-lists/{shoppingList}/items', [ShoppingListItemController::class, 'store'])->name('shopping-lists.items.store');
+    Route::patch('/shopping-lists/{shoppingList}/items/reorder', [ShoppingListItemController::class, 'reorder'])->name('shopping-lists.items.reorder');
     Route::delete('/shopping-lists/{shoppingList}/items/{item}', [ShoppingListItemController::class, 'destroy'])->name('shopping-lists.items.destroy');
     Route::patch('/shopping-lists/{shoppingList}/items/{item}/purchased', [ShoppingListItemController::class, 'updatePurchasedStatus'])->name('shopping-lists.items.purchased');
     // Logout

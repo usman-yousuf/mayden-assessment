@@ -199,3 +199,24 @@ button[type="submit"] {
     color: #166534;
     border: 1px solid #86efac;
 }
+
+/* -----------CSS for drag element-------------- */
+#grocery-items-table tbody tr {
+    cursor: grab;
+}
+
+#grocery-items-table tbody tr.dragging {
+    opacity: 0.5;
+    background-color: #e8f0fe;
+}
+
+#grocery-items-table .drag-handle {
+    cursor: grab;
+    font-size: 20px;
+    text-align: center;
+    user-select: none;
+}
+
+#grocery-items-table tbody tr:active {
+    cursor: grabbing;
+}
