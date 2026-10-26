@@ -32,6 +32,10 @@ Route::middleware('auth')->group(function () {
 });
 
 
+
 Route::get('/', function () {
-    return redirect()->route('shopping-lists.index');
-})->name('home');
+    return auth()->check()
+        ? redirect()->route('shopping-lists.index')
+        : redirect()->route('login');
+});
+

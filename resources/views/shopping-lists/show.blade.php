@@ -29,6 +29,7 @@
     @else
         <div class="table-responsive">
            <table class="table" id="grocery-items-table" data-reorder-url="{{ route('shopping-lists.items.reorder', $shoppingList) }}">
+                <caption class="sr-only">Grocery items for {{ $shoppingList->name }}</caption>
                 <thead>
                     <tr>
                         <th>Move</th>
@@ -44,7 +45,7 @@
                 <tbody>
                     @foreach ($items as $item)
                          <tr data-item-uuid="{{ $item->uuid }}">
-                            <td class="drag-handle" draggable="true" title="Drag to reorder">⠿</td>
+                            <td class="drag-handle" draggable="true" title="Drag to reorder" aria-label="Drag {{ $item->name }} to reorder">⠿</td>
                             <td>
                                 <span style="{{ $item->is_purchased ? 'text-decoration: line-through; color: #888;' : '' }}">
                                     {{ $item->name }}
@@ -58,10 +59,8 @@
                                 <form action="{{ route('shopping-lists.items.purchased', [$shoppingList, $item]) }}" method="POST" style="display: inline-block;">
                                     @csrf
                                     @method('PATCH')
-
                                     <input type="hidden" name="is_purchased" value="{{ $item->is_purchased ? 0 : 1 }}">
-
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary" aria-label="{{ $item->is_purchased ? 'Mark ' . $item->name . ' as Pending' : 'Mark ' . $item->name . ' as Purchased' }}">
                                         {{ $item->is_purchased ? 'Mark as Pending' : 'Mark as Purchased' }}
                                     </button>
                                 </form>
@@ -69,8 +68,7 @@
                                 <form action="{{ route('shopping-lists.items.destroy', [$shoppingList, $item]) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Are you sure you want to delete this grocery item?');">
                                     @csrf
                                     @method('DELETE')
-
-                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <button type="submit" class="btn btn-danger" aria-label="Delete {{ $item->name }}">Delete</button>
                                 </form>
                             </td>
 

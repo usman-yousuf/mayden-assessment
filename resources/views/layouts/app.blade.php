@@ -6,13 +6,15 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'Product Management')</title>
+    <title>@yield('title', 'Grocery Shopping List')</title>
 
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
     @stack('styles')
 </head>
 <body>
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     @include('partials.header')
 

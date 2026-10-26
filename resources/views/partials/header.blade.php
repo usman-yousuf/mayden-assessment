@@ -6,7 +6,7 @@
 
             <nav aria-label="Main navigation">
                 @auth
-                    <a href="{{ route('shopping-lists.index') }}">Shopping Lists</a>
+                    <a href="{{ route('shopping-lists.index') }}" @if(request()->routeIs('shopping-lists.index')) aria-current="page" @endif>Shopping Lists</a>
                 @endauth
             </nav>
         </div>
