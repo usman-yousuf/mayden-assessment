@@ -1,58 +1,207 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Grocery Shopping List Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A web application developed using **Laravel 13, PHP 8.5, and MySQL/MariaDB** as part of the Mayden Developer Recruitment Coding Challenge.
 
-## About Laravel
+The application allows users to create and manage grocery shopping lists, track purchased items, calculate costs, manage budgets, and share shopping lists by email.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **User Authentication:** Secure user registration, login, and logout.
+- **Shopping List Management:** Create and manage personal shopping lists.
+- **Grocery Items:** Add items with names, quantities, and unit prices.
+- **Duplicate Prevention:** Prevent duplicate grocery item names within the same shopping list.
+- **Purchase Tracking:** Mark grocery items as purchased or pending.
+- **Delete Items:** Remove grocery items from shopping lists.
+- **Drag-and-Drop Reordering:** Rearrange grocery items with persistent database ordering.
+- **Price Calculation:** Calculate individual item totals and the shopping list grand total.
+- **Budget Management:** Set an optional budget and receive a warning when the total exceeds it.
+- **Email Sharing:** Share shopping list details by email using Laravel Mail.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Technology Stack
 
-## Learning Laravel
+| Technology | Purpose |
+|---|---|
+| PHP 8.5 | Backend programming language |
+| Laravel 13 | Application framework |
+| MySQL / MariaDB | Relational database |
+| Blade | Server-side templates |
+| HTML, CSS, JavaScript | Frontend |
+| XAMPP | Local development environment |
+| Mailtrap | Email testing |
+| Git & GitHub | Version control |
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Application Architecture
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+The application uses Laravel's MVC architecture with additional service and repository layers to separate responsibilities.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+**Controller → Service → Repository Contract → Eloquent Repository → Database**
 
-## Agentic Development
+- **Controllers:** Handle incoming HTTP requests, responses, and authorization.
+- **Form Requests:** Validate user input.
+- **Services:** Handle application business logic.
+- **Repository Contracts:** Define interfaces for database operations.
+- **Eloquent Repositories:** Implement database access using Laravel Eloquent.
+- **Models:** Represent database entities and relationships.
+- **Blade Views:** Render the user interface.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Repository contracts are connected to their implementations through Laravel's service container.
 
-```bash
-composer require laravel/boost --dev
+## Project Structure
 
-php artisan boost:install
+```text
+mayden-assessment/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/       # HTTP request handling
+│   │   └── Requests/          # Form validation
+│   ├── Models/                # Eloquent models
+│   ├── Services/              # Business logic
+│   ├── Repositories/          # Repository interfaces and implementations
+│   └── Mail/                  # Email functionality
+├── database/
+│   └── migrations/            # Database schema
+├── resources/
+│   └── views/                 # Blade templates
+├── public/
+│   └── assets/
+│       ├── css/               # Application styles
+│       └── js/                # Frontend JavaScript
+├── routes/
+│   └── web.php                # Web application routes
+├── .env.example               # Example environment configuration
+├── composer.json              # PHP dependencies
+└── README.md
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## Installation and Setup
 
-## Contributing
+### Prerequisites
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- PHP 8.5
+- Composer
+- MySQL or MariaDB
+- Required PHP extensions
+- Git
 
-## Code of Conduct
+**Development Environment:** The application was developed locally on Windows using XAMPP. XAMPP is optional; any compatible PHP and database environment can be used.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 1. Clone the Repository
 
-## Security Vulnerabilities
+```bash
+git clone https://github.com/usman-yousuf/mayden-assessment.git
+cd mayden-assessment
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 2. Install Dependencies
 
-## License
+```bash
+composer install
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 3. Configure Environment
+
+Copy the example environment file:
+
+```bash
+cp .env.example .env
+```
+
+For Windows PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Generate the application key:
+
+```bash
+php artisan key:generate
+```
+
+### 4. Configure Database
+
+If using XAMPP, start the database server from the XAMPP Control Panel.
+
+Create a new database named `mayden_assessment` using phpMyAdmin or your preferred database client.
+
+Update the `.env` file:
+
+```dotenv
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=mayden_assessment
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Adjust the credentials according to your local database configuration.
+
+Laravel's `mysql` database connection supports compatible MySQL and MariaDB installations.
+
+### 5. Run Migrations
+
+```bash
+php artisan migrate
+```
+
+### 6. Start the Application
+
+```bash
+php artisan serve
+```
+
+Open the application in your browser:
+
+http://127.0.0.1:8000
+
+Register an account to begin creating and managing shopping lists.
+
+## Email Configuration
+
+The application uses Laravel Mail to share shopping lists by email.
+
+Mailtrap was used during development to test email functionality.
+
+Configure SMTP settings in `.env`:
+
+```dotenv
+MAIL_MAILER=smtp
+MAIL_HOST=your_mailtrap_host
+MAIL_PORT=2525
+MAIL_USERNAME=your_mailtrap_username
+MAIL_PASSWORD=your_mailtrap_password
+MAIL_FROM_ADDRESS=noreply@example.com
+MAIL_FROM_NAME="Grocery Shopping List"
+```
+
+Replace the placeholder values with the SMTP credentials provided by Mailtrap or another email service.
+
+Mailtrap Email Testing captures outgoing messages in a test inbox rather than delivering them to real recipients.
+
+**Note:** The `.env` file contains sensitive credentials and must not be committed to GitHub.
+
+## Security
+
+The application includes:
+
+- Authentication-protected routes.
+- Ownership checks to prevent users from accessing another user's shopping lists.
+- Server-side validation using Laravel Form Requests.
+- CSRF protection for form submissions.
+- Eloquent ORM for database interactions.
+- UUID-based identifiers for shopping lists and grocery items.
+
+## Accessibility
+
+Basic accessibility improvements include semantic HTML, labelled form inputs, keyboard-accessible navigation and buttons, visible focus indicators, a skip-to-content link, and descriptive action labels.
+
+Drag-and-drop reordering is currently mouse-based.
+
+## Future Improvements
+
+- Keyboard-accessible grocery item reordering.
+- Additional automated feature tests.
+- Editing existing grocery items and budget limits.
+- Real-time collaborative shopping lists.
+- Further responsive design and accessibility improvements.
