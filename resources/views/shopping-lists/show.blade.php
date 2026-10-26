@@ -77,6 +77,13 @@
                         </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4" class="text-end"><strong>Grand Total:</strong></td>
+                        <td><strong>£{{ number_format($grandTotal, 2) }}</strong></td>
+                        <td colspan="2"></td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     @endif

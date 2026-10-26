@@ -44,7 +44,9 @@ class ShoppingListController extends Controller
 
         $items = $this->shoppingListItemService->getItems($shoppingList);
 
-        return view('shopping-lists.show', compact('shoppingList', 'items'));
+        $grandTotal = $this->shoppingListItemService->calculateTotal($shoppingList);
+
+        return view('shopping-lists.show', compact('shoppingList', 'items', 'grandTotal'));
     }
 
 }

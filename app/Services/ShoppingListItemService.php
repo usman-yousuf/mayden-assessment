@@ -64,4 +64,15 @@ class ShoppingListItemService
         $this->repository->reorderItems($shoppingList, $itemUuids);
     }
 
+    
+    public function calculateTotal(ShoppingList $shoppingList): float
+    {
+        $items = $this->repository->getByShoppingList($shoppingList);
+
+        return round($items->sum(function ($item) {
+            return $item->quantity * $item->price;
+        }), 2);
+    }
+
+
 }
