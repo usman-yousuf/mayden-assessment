@@ -85,6 +85,22 @@
                     </tr>
                 </tfoot>
             </table>
+            @if ($shoppingList->budget_limit !== null)
+                <div class="budget-summary">
+                    <p><strong>Budget Limit:</strong> £{{ number_format($shoppingList->budget_limit, 2) }}</p>
+
+                    @if ($grandTotal > $shoppingList->budget_limit)
+                        <div class="alert alert-danger">
+                           ⚠ Budget exceeded by £{{ number_format($grandTotal - $shoppingList->budget_limit, 2) }}!
+                        </div>
+                    @else
+                        <div class="alert alert-success">
+                            You are within your budget.
+                            Remaining: £{{ number_format($shoppingList->budget_limit - $grandTotal, 2) }}
+                        </div>
+                    @endif
+                </div>
+            @endif
         </div>
     @endif
 

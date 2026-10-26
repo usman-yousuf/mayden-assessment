@@ -24,6 +24,7 @@ class ShoppingListStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
+            'budget_limit' => ['nullable', 'numeric', 'min:0', 'decimal:0,2'],
         ];
     }
 }

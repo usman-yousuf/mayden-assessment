@@ -27,6 +27,15 @@
             @enderror
         </div>
 
+        <div class="form-group">
+            <label for="budget_limit">Budget Limit (£) (Optional)</label>
+            <input type="number" id="budget_limit" name="budget_limit" value="{{ old('budget_limit') }}" placeholder="e.g. 50.00" min="0" step="0.01">
+
+            @error('budget_limit')
+                <div class="validation-error">{{ $message }}</div>
+            @enderror
+        </div>
+
         <button type="submit" class="btn btn-primary">Create List</button>
     </form>
 
@@ -37,7 +46,7 @@
     @else
         <ul>
             @foreach ($shoppingLists as $shoppingList)
-                 <li>
+                <li>
                     <a href="{{ route('shopping-lists.show', $shoppingList) }}">
                         {{ $shoppingList->name }}
                     </a>

@@ -19,8 +19,7 @@ class ShoppingListController extends Controller
 
     public function index(Request $request): View
     {
-        $shoppingLists = $this->shoppingListService
-            ->getUserLists($request->user());
+        $shoppingLists = $this->shoppingListService->getUserLists($request->user());
 
         return view('shopping-lists.index', compact('shoppingLists'));
     }
@@ -28,14 +27,9 @@ class ShoppingListController extends Controller
     
     public function store(ShoppingListStoreRequest $request): RedirectResponse
     {
-        $this->shoppingListService->createList(
-            $request->user(),
-            $request->validated()
-        );
+        $this->shoppingListService->createList($request->user(), $request->validated());
 
-        return redirect()
-            ->route('shopping-lists.index')
-            ->with('success', 'Shopping list created successfully.');
+        return redirect()->route('shopping-lists.index')->with('success', 'Shopping list created successfully.');
     }
 
     public function show(Request $request, ShoppingList $shoppingList): View
