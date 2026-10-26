@@ -24,6 +24,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/shopping-lists/{shoppingList}/items/reorder', [ShoppingListItemController::class, 'reorder'])->name('shopping-lists.items.reorder');
     Route::delete('/shopping-lists/{shoppingList}/items/{item}', [ShoppingListItemController::class, 'destroy'])->name('shopping-lists.items.destroy');
     Route::patch('/shopping-lists/{shoppingList}/items/{item}/purchased', [ShoppingListItemController::class, 'updatePurchasedStatus'])->name('shopping-lists.items.purchased');
+    
+    Route::post('/shopping-lists/{shoppingList}/share', [ShoppingListController::class, 'share'])->name('shopping-lists.share');
+
     // Logout
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 });

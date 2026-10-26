@@ -101,6 +101,26 @@
                     @endif
                 </div>
             @endif
+            
+            <div class="share-list-section">
+                <h3>Share Shopping List</h3>
+
+                <form action="{{ route('shopping-lists.share', $shoppingList) }}" method="POST">
+                    @csrf
+
+                    <div class="form-group">
+                        <label for="email">Recipient Email Address</label>
+                        <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="Enter recipient email" required>
+
+                        @error('email')
+                            <div class="validation-error">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Share via Email</button>
+                </form>
+            </div>
+
         </div>
     @endif
 

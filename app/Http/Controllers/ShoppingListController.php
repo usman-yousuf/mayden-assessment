@@ -6,6 +6,7 @@ use App\Models\ShoppingList;
 use App\Services\ShoppingListService;
 use App\Services\ShoppingListItemService;
 use App\Http\Requests\ShoppingListStoreRequest;
+use App\Http\Requests\ShoppingListShareRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -41,6 +42,17 @@ class ShoppingListController extends Controller
         $grandTotal = $this->shoppingListItemService->calculateTotal($shoppingList);
 
         return view('shopping-lists.show', compact('shoppingList', 'items', 'grandTotal'));
+    }
+
+    
+    public function share(ShoppingListShareRequest $request, ShoppingList $shoppingList): RedirectResponse
+    {
+        abort_unless((int) $shoppingList->user_id === (int) $request->user()->id, 403);
+
+        $this->shoppingListService->shareList($shoppingList, $request->validated('email'));
+
+        return redirect()->route('shopping-lists.show', $shoppingList)
+            ->with('success', 'Shopping list shared successfully via email.');
     }
 
 }
