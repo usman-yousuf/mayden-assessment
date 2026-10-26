@@ -13,4 +13,8 @@ interface ShoppingListItemRepositoryInterface
     public function createForShoppingList(ShoppingList $shoppingList,array $data): ShoppingListItem;
 
     public function existsByName(ShoppingList $shoppingList, string $name): bool;
+
+    public function delete(ShoppingListItem $item): bool;
+
+    public function updatePurchasedStatus(ShoppingListItem $item, bool $isPurchased): bool;
 }

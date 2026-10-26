@@ -25,4 +25,14 @@ class EloquentShoppingListItemRepository implements ShoppingListItemRepositoryIn
             ->whereRaw('LOWER(name) = ?', [mb_strtolower($name)])
             ->exists();
     }
+
+    public function delete(ShoppingListItem $item): bool
+    {
+        return (bool) $item->delete();
+    }
+
+    public function updatePurchasedStatus(ShoppingListItem $item, bool $isPurchased): bool
+    {
+        return $item->update(['is_purchased' => $isPurchased]);
+    }
 }

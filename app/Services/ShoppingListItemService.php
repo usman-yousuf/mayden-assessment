@@ -32,4 +32,16 @@ class ShoppingListItemService
         return $this->repository->createForShoppingList($shoppingList, $data);
     }
 
+    public function deleteItem(ShoppingListItem $item): bool
+    {
+        return $this->repository->delete($item);
+    }
+
+    
+    public function updatePurchasedStatus(ShoppingListItem $item, bool $isPurchased): bool
+    {
+        return $this->repository->updatePurchasedStatus($item, $isPurchased);
+    }
+
+
 }

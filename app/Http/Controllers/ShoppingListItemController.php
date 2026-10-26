@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ShoppingListItemStoreRequest;
 use App\Models\ShoppingList;
+use App\Models\ShoppingListItem;
+use App\Http\Requests\ShoppingListItemStoreRequest;
 use App\Services\ShoppingListItemService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -30,4 +31,33 @@ class ShoppingListItemController extends Controller
 
         return redirect()->route('shopping-lists.show', $shoppingList)->with('success', 'Grocery item added successfully.');
     }
+
+    
+    public function destroy(Request $request, ShoppingList $shoppingList, ShoppingListItem $item): RedirectResponse
+    {
+        abort_unless((int) $shoppingList->user_id === (int) $request->user()->id, 403);
+
+        abort_unless((int) $item->shopping_list_id === (int) $shoppingList->id, 404);
+
+        $this->shoppingListItemService->deleteItem($item);
+
+        return redirect()->route('shopping-lists.show', $shoppingList)->with('success', 'Grocery item deleted successfully.');
+    }
+
+    
+    public function updatePurchasedStatus(Request $request, ShoppingList $shoppingList, ShoppingListItem $item): RedirectResponse
+    {
+        abort_unless((int) $shoppingList->user_id === (int) $request->user()->id, 403);
+
+        abort_unless((int) $item->shopping_list_id === (int) $shoppingList->id, 404);
+
+        $validated = $request->validate([
+            'is_purchased' => ['required', 'boolean'],
+        ]);
+
+        $this->shoppingListItemService->updatePurchasedStatus($item, (bool) $validated['is_purchased']);
+
+        return redirect()->route('shopping-lists.show', $shoppingList)->with('success', 'Grocery item status updated successfully.');
+    }
+
 }
